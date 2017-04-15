@@ -15,15 +15,29 @@ public class JPPrincipal extends javax.swing.JPanel {
         jtbTool = new javax.swing.JToolBar();
         jbtnSesion = new javax.swing.JButton();
         jbtnVentas = new javax.swing.JButton();
-        jtbnInventario = new javax.swing.JButton();
+        jbtnInventario = new javax.swing.JButton();
         jbtnFacturacion = new javax.swing.JButton();
         jbtnEmpleado = new javax.swing.JButton();
+        jbtnLog = new javax.swing.JButton();
         jtbExit = new javax.swing.JButton();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jdpPanel.setBackground(new java.awt.Color(102, 255, 102));
+        jdpPanel.setBackground(new java.awt.Color(255, 102, 153));
+
+        javax.swing.GroupLayout jdpPanelLayout = new javax.swing.GroupLayout(jdpPanel);
+        jdpPanel.setLayout(jdpPanelLayout);
+        jdpPanelLayout.setHorizontalGroup(
+            jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 816, Short.MAX_VALUE)
+        );
+        jdpPanelLayout.setVerticalGroup(
+            jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 602, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jdpPanel);
 
         jtbTool.setRollover(true);
         jtbTool.setEnabled(false);
@@ -35,6 +49,11 @@ public class JPPrincipal extends javax.swing.JPanel {
         jbtnSesion.setMaximumSize(new java.awt.Dimension(48, 48));
         jbtnSesion.setMinimumSize(new java.awt.Dimension(48, 48));
         jbtnSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSesionActionPerformed(evt);
+            }
+        });
         jtbTool.add(jbtnSesion);
 
         jbtnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/ventas.png"))); // NOI18N
@@ -52,21 +71,21 @@ public class JPPrincipal extends javax.swing.JPanel {
         });
         jtbTool.add(jbtnVentas);
 
-        jtbnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/inventario.png"))); // NOI18N
-        jtbnInventario.setToolTipText("Inventario");
-        jtbnInventario.setEnabled(false);
-        jtbnInventario.setFocusable(false);
-        jtbnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jtbnInventario.setMaximumSize(new java.awt.Dimension(48, 48));
-        jtbnInventario.setMinimumSize(new java.awt.Dimension(48, 48));
-        jtbnInventario.setPreferredSize(new java.awt.Dimension(32, 32));
-        jtbnInventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jtbnInventario.addActionListener(new java.awt.event.ActionListener() {
+        jbtnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/inventario.png"))); // NOI18N
+        jbtnInventario.setToolTipText("Inventario");
+        jbtnInventario.setEnabled(false);
+        jbtnInventario.setFocusable(false);
+        jbtnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnInventario.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnInventario.setMinimumSize(new java.awt.Dimension(48, 48));
+        jbtnInventario.setPreferredSize(new java.awt.Dimension(32, 32));
+        jbtnInventario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtbnInventarioActionPerformed(evt);
+                jbtnInventarioActionPerformed(evt);
             }
         });
-        jtbTool.add(jtbnInventario);
+        jtbTool.add(jbtnInventario);
 
         jbtnFacturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/factura.png"))); // NOI18N
         jbtnFacturacion.setToolTipText("Facturación");
@@ -87,6 +106,16 @@ public class JPPrincipal extends javax.swing.JPanel {
         jbtnEmpleado.setMinimumSize(new java.awt.Dimension(48, 48));
         jbtnEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jtbTool.add(jbtnEmpleado);
+
+        jbtnLog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/historial.png"))); // NOI18N
+        jbtnLog.setToolTipText("Historial de acciones");
+        jbtnLog.setEnabled(false);
+        jbtnLog.setFocusable(false);
+        jbtnLog.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnLog.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnLog.setMinimumSize(new java.awt.Dimension(48, 48));
+        jbtnLog.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jtbTool.add(jbtnLog);
 
         jtbExit.setForeground(new java.awt.Color(255, 255, 255));
         jtbExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/salir.png"))); // NOI18N
@@ -109,32 +138,19 @@ public class JPPrincipal extends javax.swing.JPanel {
         });
         jtbTool.add(jtbExit);
 
-        jdpPanel.setLayer(jtbTool, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jdpPanelLayout = new javax.swing.GroupLayout(jdpPanel);
-        jdpPanel.setLayout(jdpPanelLayout);
-        jdpPanelLayout.setHorizontalGroup(
-            jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jtbTool, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
-        );
-        jdpPanelLayout.setVerticalGroup(
-            jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdpPanelLayout.createSequentialGroup()
-                .addComponent(jtbTool, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 523, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setViewportView(jdpPanel);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jtbTool, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jtbTool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -147,24 +163,38 @@ public class JPPrincipal extends javax.swing.JPanel {
     private void jtbExitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbExitMouseEntered
     }//GEN-LAST:event_jtbExitMouseEntered
 
-    private void jtbnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbnInventarioActionPerformed
+    private void jbtnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInventarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtbnInventarioActionPerformed
+    }//GEN-LAST:event_jbtnInventarioActionPerformed
 
     private void jbtnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVentasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnVentasActionPerformed
+
+    private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
+//        this.jbtnFacturacion.setEnabled(true);
+//        this.jbtnVentas.setEnabled(true);
+//        this.jbtnInventario.setEnabled(true);
+//        this.jbtnEmpleado.setEnabled(true);
+//        this.jbtnLog.setEnabled(true);
+
+        JIFInitSesion initSesion = new JIFInitSesion();
+        this.jdpPanel.add(initSesion);
+        initSesion.setBounds(100, 100, 398, 278);
+        initSesion.setVisible(true);
+    }//GEN-LAST:event_jbtnSesionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnEmpleado;
     private javax.swing.JButton jbtnFacturacion;
+    private javax.swing.JButton jbtnInventario;
+    private javax.swing.JButton jbtnLog;
     private javax.swing.JButton jbtnSesion;
     private javax.swing.JButton jbtnVentas;
     private javax.swing.JDesktopPane jdpPanel;
     private javax.swing.JButton jtbExit;
     private javax.swing.JToolBar jtbTool;
-    private javax.swing.JButton jtbnInventario;
     // End of variables declaration//GEN-END:variables
 }
