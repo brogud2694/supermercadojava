@@ -1,15 +1,20 @@
 package Main;
 
-import Business.DatabaseBusiness;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import GUI.JPPrincipal;
+import javax.swing.JFrame;
 
 public class Main {
+
     public static void main(String[] args) {
-        try {
-            DatabaseBusiness bd = new DatabaseBusiness();
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        initSystem();
     }//END MAIN
+
+    public static void initSystem() {
+        JFrame jf = new JFrame();
+        JPPrincipal jp = new JPPrincipal();
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.add(jp);
+        jf.pack();
+        jf.setVisible(true);
+    }//END METHOD INITSYSTEM
 }//END CLASS MAIN
