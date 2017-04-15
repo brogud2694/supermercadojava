@@ -1,7 +1,6 @@
 package Main;
 
 import GUI.JPPrincipal;
-import javax.swing.JFrame;
 
 public class Main {
 

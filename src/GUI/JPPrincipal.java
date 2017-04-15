@@ -196,7 +196,12 @@ public final class JPPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnInventarioActionPerformed
 
     private void jbtnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVentasActionPerformed
-        // TODO add your handling code here:
+        if (!this.inUse) {
+            try {
+                initJIFVentas();
+            } catch (IOException ex) {
+            }
+        }
     }//GEN-LAST:event_jbtnVentasActionPerformed
 
     private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
@@ -233,6 +238,11 @@ public final class JPPrincipal extends javax.swing.JPanel {
     public void initJIFSesion() throws IOException {
         JInternalFrame controlPanel = new JIFSesion(this);
         initJIF(controlPanel);
+    }
+    
+    public void initJIFVentas() throws IOException {
+        JInternalFrame ventas = new JIFVentas(this);
+        initJIF(ventas);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

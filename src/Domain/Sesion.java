@@ -4,6 +4,7 @@ import GUI.JPPrincipal;
 
 public class Sesion {
 
+    private int dni;
     private String nombre;
     private int numeroPuesto;
     private String nombrePuesto;
@@ -12,6 +13,7 @@ public class Sesion {
     private JPPrincipal jpPrincipal;
 
     public Sesion(JPPrincipal jpPrincipal) {
+        this.dni = 0;
         this.nombre = "";
         this.numeroPuesto = 0;
         this.nombrePuesto = "";
@@ -49,5 +51,11 @@ public class Sesion {
     }
     public void setNombrePuesto(String nombrePuesto) {
         this.nombrePuesto = nombrePuesto;
+    }
+    public int getDni() {
+        return dni;
+    }
+    public void setDni(int dni) {
+        this.dni = dni;
     }
 }//END CLASS SESION

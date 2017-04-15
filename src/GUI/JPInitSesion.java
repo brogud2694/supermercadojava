@@ -97,14 +97,17 @@ public final class JPInitSesion extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnInitSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInitSesionActionPerformed
-        this.jpPrincipal.sesion.setNombre(this.jtfDNI.getText());
-        this.jpPrincipal.sesion.setPrivilege(3);
-        this.jpPrincipal.sesion.setSesionIniciada(true);
-        this.jpPrincipal.activePrivileges();
-        this.jpPrincipal.setNewTitle();
-        this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
-        this.initSesion.dispose();
-        
+        if (isNumeric(this.jtfDNI.getText())) {
+            this.jpPrincipal.sesion.setDni(Integer.parseInt(this.jtfDNI.getText()));
+            this.jpPrincipal.sesion.setNombre(this.jtfDNI.getText());
+            this.jpPrincipal.sesion.setPrivilege(3);
+            this.jpPrincipal.sesion.setSesionIniciada(true);
+            this.jpPrincipal.activePrivileges();
+            this.jpPrincipal.setNewTitle();
+            this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
+            this.initSesion.dispose();
+        }
+
     }//GEN-LAST:event_jbtnInitSesionActionPerformed
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
@@ -112,6 +115,14 @@ public final class JPInitSesion extends javax.swing.JPanel {
         this.initSesion.dispose();
     }//GEN-LAST:event_jbtnExitActionPerformed
 
+    public boolean isNumeric(String number) {
+        try {
+            Integer.parseInt(number);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtnExit;
