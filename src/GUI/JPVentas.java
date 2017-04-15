@@ -62,11 +62,11 @@ public final class JPVentas extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Cantidad", "Precio", "Total", "Acción"
+                "Código", "Nombre", "Cantidad", "Precio", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, true
+                true, false, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -75,10 +75,10 @@ public final class JPVentas extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jtbTool.setFloatable(false);
@@ -92,6 +92,11 @@ public final class JPVentas extends javax.swing.JPanel {
         jbtnProcesarCompra.setMaximumSize(new java.awt.Dimension(48, 48));
         jbtnProcesarCompra.setMinimumSize(new java.awt.Dimension(48, 48));
         jbtnProcesarCompra.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnProcesarCompra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnProcesarCompraActionPerformed(evt);
+            }
+        });
         jtbTool.add(jbtnProcesarCompra);
 
         jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/salir.png"))); // NOI18N
@@ -131,7 +136,7 @@ public final class JPVentas extends javax.swing.JPanel {
             .addComponent(jtbTool, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
@@ -145,7 +150,7 @@ public final class JPVentas extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jtfCode)
                             .addComponent(jtfCantidad, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(444, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +203,11 @@ public final class JPVentas extends javax.swing.JPanel {
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
 
     }//GEN-LAST:event_jbtnAddActionPerformed
+
+    private void jbtnProcesarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnProcesarCompraActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbtnProcesarCompraActionPerformed
 
     public boolean isNumeric(String number) {
         try {
