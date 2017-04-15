@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 public final class JPVentas extends javax.swing.JPanel {
 
@@ -18,8 +19,8 @@ public final class JPVentas extends javax.swing.JPanel {
         loadResources();
         init();
     }
-    
-    public void init(){
+
+    public void init() {
         this.jlbVendedorDos.setText(this.jpPrincipal.sesion.getNombre());
     }
 
@@ -31,7 +32,7 @@ public final class JPVentas extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(this.icon, 80, 170, this);
+        g.drawImage(this.icon, 80, 155, this);
     }
 
     @SuppressWarnings("unchecked")
@@ -50,6 +51,8 @@ public final class JPVentas extends javax.swing.JPanel {
         jbtnAdd = new javax.swing.JButton();
         jlbVendedor = new javax.swing.JLabel();
         jlbVendedorDos = new javax.swing.JLabel();
+        jtfTotal = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 480));
@@ -83,6 +86,7 @@ public final class JPVentas extends javax.swing.JPanel {
         jtbTool.setEnabled(false);
 
         jbtnProcesarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/ventaico.png"))); // NOI18N
+        jbtnProcesarCompra.setToolTipText("Pagar");
         jbtnProcesarCompra.setFocusable(false);
         jbtnProcesarCompra.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtnProcesarCompra.setMaximumSize(new java.awt.Dimension(48, 48));
@@ -116,6 +120,10 @@ public final class JPVentas extends javax.swing.JPanel {
 
         jlbVendedorDos.setText("jLabel2");
 
+        jtfTotal.setEditable(false);
+
+        jLabel1.setText("Total:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,10 +148,17 @@ public final class JPVentas extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jlbVendedor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jlbVendedorDos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jlbVendedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jlbVendedorDos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,17 +176,23 @@ public final class JPVentas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlbCantidad)
                     .addComponent(jtfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
                 .addComponent(jbtnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
-        this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
-        this.ventas.dispose();
+        if (JOptionPane.showConfirmDialog(this, "¿Desea cerrar la venta?") == 0) {
+            this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
+            this.ventas.dispose();
+        }
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
@@ -188,6 +209,7 @@ public final class JPVentas extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtnAdd;
@@ -200,5 +222,6 @@ public final class JPVentas extends javax.swing.JPanel {
     private javax.swing.JToolBar jtbTool;
     private javax.swing.JTextField jtfCantidad;
     private javax.swing.JTextField jtfCode;
+    private javax.swing.JTextField jtfTotal;
     // End of variables declaration//GEN-END:variables
 }
