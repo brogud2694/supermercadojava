@@ -8,6 +8,5 @@ public class DatabaseBusiness {
 
     public DatabaseBusiness() throws Exception {
         this.database = new Database();
-        this.database.get();
     }//END DEFAULT CONSTRUCTOR
 }//END CLASS DATABASEBUSINESS
