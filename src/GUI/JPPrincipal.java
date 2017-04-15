@@ -201,23 +201,38 @@ public final class JPPrincipal extends javax.swing.JPanel {
 
     private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
         if (!this.inUse) {
-            try {
-                initJIFInitSesion();
-            } catch (IOException ex) {
+            if (this.sesion.isSesionIniciada()) {
+                try {
+                    initJIFSesion();
+                } catch (IOException ex) {
+                }
+            } else {
+                try {
+                    initJIFInitSesion();
+                } catch (IOException ex) {
+                }
             }
         }
     }//GEN-LAST:event_jbtnSesionActionPerformed
 
+    public void initJIF(JInternalFrame jif) {
+        int x = (this.jdpPanel.getWidth() / 2) - (jif.getWidth() / 2);
+        int y = (this.jdpPanel.getHeight() / 2) - (jif.getHeight() / 2);
+
+        this.jdpPanel.add(jif);
+        jif.setLocation(x, y);
+        jif.show();
+        this.inUse = !this.inUse;
+    }
+
     public void initJIFInitSesion() throws IOException {
         JInternalFrame initSesion = new JIFInitSesion(this);
+        initJIF(initSesion);
+    }
 
-        int x = (this.jdpPanel.getWidth() / 2) - (initSesion.getWidth() / 2);
-        int y = (this.jdpPanel.getHeight() / 2) - (initSesion.getHeight() / 2);
-
-        this.jdpPanel.add(initSesion);
-        initSesion.setLocation(x, y);
-        initSesion.show();
-        this.inUse = !this.inUse;
+    public void initJIFSesion() throws IOException {
+        JInternalFrame controlPanel = new JIFSesion(this);
+        initJIF(controlPanel);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -233,24 +248,52 @@ public final class JPPrincipal extends javax.swing.JPanel {
     private javax.swing.JToolBar jtbTool;
     // End of variables declaration//GEN-END:variables
 
-    public void setJbtnEmpleado() {
-        this.jbtnEmpleado.setEnabled(!this.jbtnEmpleado.isEnabled());
+    public void activePrivileges() {
+        switch (this.sesion.getPrivilege()) {
+            case 1:
+                this.setJbtnVentas(true);
+                break;
+            case 2:
+                this.setJbtnInventario(true);
+                break;
+            case 3:
+                this.setJbtnEmpleado(true);
+                this.setJbtnFacturacion(true);
+                this.setJbtnInventario(true);
+                this.setJbtnLog(true);
+                this.setJbtnVentas(true);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    public void desactivateButtons(){
+        this.setJbtnEmpleado(false);
+        this.setJbtnFacturacion(false);
+        this.setJbtnInventario(false);
+        this.setJbtnLog(false);
+        this.setJbtnVentas(false);
     }
 
-    public void setJbtnFacturacion() {
-        this.jbtnFacturacion.setEnabled(!this.jbtnFacturacion.isEnabled());
+    public void setJbtnEmpleado(boolean option) {
+        this.jbtnEmpleado.setEnabled(option);
     }
 
-    public void setJbtnInventario() {
-        this.jbtnInventario.setEnabled(!this.jbtnInventario.isEnabled());
+    public void setJbtnFacturacion(boolean option) {
+        this.jbtnFacturacion.setEnabled(option);
     }
 
-    public void setJbtnLog() {
-        this.jbtnLog.setEnabled(!this.jbtnLog.isEnabled());
+    public void setJbtnInventario(boolean option) {
+        this.jbtnInventario.setEnabled(option);
     }
 
-    public void setJbtnVentas() {
-        this.jbtnVentas.setEnabled(!this.jbtnVentas.isEnabled());
+    public void setJbtnLog(boolean option) {
+        this.jbtnLog.setEnabled(option);
+    }
+
+    public void setJbtnVentas(boolean option) {
+        this.jbtnVentas.setEnabled(option);
     }
 
     public void setNewTitle() {

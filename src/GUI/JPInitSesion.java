@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-public class JPInitSesion extends javax.swing.JPanel {
+public final class JPInitSesion extends javax.swing.JPanel {
 
     JPPrincipal jpPrincipal;
     JIFInitSesion initSesion;
@@ -37,7 +37,8 @@ public class JPInitSesion extends javax.swing.JPanel {
         jlbDNI = new javax.swing.JLabel();
         jlbPass = new javax.swing.JLabel();
         jtfDNI = new javax.swing.JTextField();
-        jtfPass = new javax.swing.JTextField();
+        jbtnExit = new javax.swing.JButton();
+        jpfPass = new javax.swing.JPasswordField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -52,63 +53,72 @@ public class JPInitSesion extends javax.swing.JPanel {
 
         jlbPass.setText("Contraseña");
 
+        jbtnExit.setText("Salir");
+        jbtnExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnExitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(98, 98, 98)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jlbDNI)
+                    .addComponent(jlbPass)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jtfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jlbDNI)
-                                .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlbPass))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jbtnInitSesion)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                        .addComponent(jbtnInitSesion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jbtnExit))
+                    .addComponent(jpfPass)
+                    .addComponent(jtfDNI))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(121, Short.MAX_VALUE)
                 .addComponent(jlbDNI)
                 .addGap(18, 18, 18)
                 .addComponent(jtfDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jlbPass)
-                .addGap(18, 18, 18)
-                .addComponent(jtfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jbtnInitSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jpfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnInitSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnExit))
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnInitSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInitSesionActionPerformed
-        this.jpPrincipal.setJbtnEmpleado();
-        this.jpPrincipal.setJbtnFacturacion();
-        this.jpPrincipal.setJbtnInventario();
-        this.jpPrincipal.setJbtnLog();
-        this.jpPrincipal.setJbtnVentas();
         this.jpPrincipal.sesion.setNombre(this.jtfDNI.getText());
-        this.jpPrincipal.sesion.setPrivilege(1);
+        this.jpPrincipal.sesion.setPrivilege(3);
         this.jpPrincipal.sesion.setSesionIniciada(true);
+        this.jpPrincipal.activePrivileges();
         this.jpPrincipal.setNewTitle();
         this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
         this.initSesion.dispose();
         
     }//GEN-LAST:event_jbtnInitSesionActionPerformed
 
+    private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
+        this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
+        this.initSesion.dispose();
+    }//GEN-LAST:event_jbtnExitActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnInitSesion;
     private javax.swing.JLabel jlbDNI;
     private javax.swing.JLabel jlbPass;
+    private javax.swing.JPasswordField jpfPass;
     private javax.swing.JTextField jtfDNI;
-    private javax.swing.JTextField jtfPass;
     // End of variables declaration//GEN-END:variables
 }
