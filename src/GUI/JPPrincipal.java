@@ -1,15 +1,37 @@
 package GUI;
 
+import Domain.Sesion;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
-public class JPPrincipal extends javax.swing.JPanel {
+public final class JPPrincipal extends javax.swing.JPanel {
+
+    public JFrame jf;
+    public Sesion sesion;
+
+    public boolean inUse;
+
+    private final String nombreMercado = "Supermercado Chinos Unidos SA";
 
     public JPPrincipal() {
         initComponents();
+        init();
+    }
+
+    public void init() {
+        this.sesion = new Sesion(this);
+        this.jf = new JFrame();
+        this.jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.jf.setTitle(this.nombreMercado);
+        this.jf.add(this);
+        this.jf.pack();
+        this.jf.setVisible(true);
+
+        this.inUse = false;
     }
 
     @SuppressWarnings("unchecked")
@@ -159,8 +181,10 @@ public class JPPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtbExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtbExitActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "¿Desea cerrar el programa?") == 0) {
-            System.exit(0);
+        if (!this.inUse) {
+            if (JOptionPane.showConfirmDialog(this, "¿Desea cerrar el programa?") == 0) {
+                System.exit(0);
+            }
         }
     }//GEN-LAST:event_jtbExitActionPerformed
 
@@ -176,20 +200,25 @@ public class JPPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVentasActionPerformed
 
     private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
-        try {
-            JInternalFrame initSesion = new JIFInitSesion(this);
-
-            int x = (this.jdpPanel.getWidth() / 2) - (initSesion.getWidth() / 2);
-            int y = (this.jdpPanel.getHeight() / 2) - (initSesion.getHeight() / 2);
-
-            this.jdpPanel.add(initSesion);
-            initSesion.setLocation(x, y);
-            initSesion.show();
-        } catch (IOException ex) {
-            Logger.getLogger(JPPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        if (!this.inUse) {
+            try {
+                initJIFInitSesion();
+            } catch (IOException ex) {
+            }
         }
     }//GEN-LAST:event_jbtnSesionActionPerformed
 
+    public void initJIFInitSesion() throws IOException {
+        JInternalFrame initSesion = new JIFInitSesion(this);
+
+        int x = (this.jdpPanel.getWidth() / 2) - (initSesion.getWidth() / 2);
+        int y = (this.jdpPanel.getHeight() / 2) - (initSesion.getHeight() / 2);
+
+        this.jdpPanel.add(initSesion);
+        initSesion.setLocation(x, y);
+        initSesion.show();
+        this.inUse = !this.inUse;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -222,5 +251,9 @@ public class JPPrincipal extends javax.swing.JPanel {
 
     public void setJbtnVentas() {
         this.jbtnVentas.setEnabled(!this.jbtnVentas.isEnabled());
+    }
+
+    public void setNewTitle() {
+        this.jf.setTitle(this.nombreMercado + " | " + this.sesion.getNombre());
     }
 }

@@ -94,6 +94,11 @@ public class JPInitSesion extends javax.swing.JPanel {
         this.jpPrincipal.setJbtnInventario();
         this.jpPrincipal.setJbtnLog();
         this.jpPrincipal.setJbtnVentas();
+        this.jpPrincipal.sesion.setNombre(this.jtfDNI.getText());
+        this.jpPrincipal.sesion.setPrivilege(1);
+        this.jpPrincipal.sesion.setSesionIniciada(true);
+        this.jpPrincipal.setNewTitle();
+        this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
         this.initSesion.dispose();
         
     }//GEN-LAST:event_jbtnInitSesionActionPerformed

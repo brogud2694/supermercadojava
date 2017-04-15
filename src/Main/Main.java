@@ -10,12 +10,6 @@ public class Main {
     }//END MAIN
 
     public static void initSystem() {
-        JFrame jf = new JFrame();
         JPPrincipal jp = new JPPrincipal();
-        jf.setTitle("Supermercado Chinos Unidos SA");
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.add(jp);
-        jf.pack();
-        jf.setVisible(true);
     }//END METHOD INITSYSTEM
 }//END CLASS MAIN
