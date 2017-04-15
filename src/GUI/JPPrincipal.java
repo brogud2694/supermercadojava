@@ -192,7 +192,12 @@ public final class JPPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_jtbExitMouseEntered
 
     private void jbtnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInventarioActionPerformed
-        // TODO add your handling code here:
+        if (!this.inUse) {
+            try {
+                initJIFInventory();
+            } catch (IOException ex) {
+            }
+        }
     }//GEN-LAST:event_jbtnInventarioActionPerformed
 
     private void jbtnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVentasActionPerformed
@@ -239,10 +244,15 @@ public final class JPPrincipal extends javax.swing.JPanel {
         JInternalFrame controlPanel = new JIFSesion(this);
         initJIF(controlPanel);
     }
-    
+
     public void initJIFVentas() throws IOException {
         JInternalFrame ventas = new JIFVentas(this);
         initJIF(ventas);
+    }
+
+    public void initJIFInventory() throws IOException {
+        JInternalFrame inventory = new JIFInventory(this);
+        initJIF(inventory);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -277,8 +287,8 @@ public final class JPPrincipal extends javax.swing.JPanel {
                 break;
         }
     }
-    
-    public void desactivateButtons(){
+
+    public void desactivateButtons() {
         this.setJbtnEmpleado(false);
         this.setJbtnFacturacion(false);
         this.setJbtnInventario(false);
