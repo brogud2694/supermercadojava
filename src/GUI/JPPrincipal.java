@@ -1,11 +1,17 @@
 package GUI;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 public class JPPrincipal extends javax.swing.JPanel {
+
     public JPPrincipal() {
         initComponents();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -24,17 +30,15 @@ public class JPPrincipal extends javax.swing.JPanel {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jdpPanel.setBackground(new java.awt.Color(255, 102, 153));
-
         javax.swing.GroupLayout jdpPanelLayout = new javax.swing.GroupLayout(jdpPanel);
         jdpPanel.setLayout(jdpPanelLayout);
         jdpPanelLayout.setHorizontalGroup(
             jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 816, Short.MAX_VALUE)
+            .addGap(0, 796, Short.MAX_VALUE)
         );
         jdpPanelLayout.setVerticalGroup(
             jdpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGap(0, 529, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jdpPanel);
@@ -143,7 +147,7 @@ public class JPPrincipal extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jtbTool, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,16 +176,24 @@ public class JPPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnVentasActionPerformed
 
     private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
-//        this.jbtnFacturacion.setEnabled(true);
+        try {
+            //        this.jbtnFacturacion.setEnabled(true);
 //        this.jbtnVentas.setEnabled(true);
 //        this.jbtnInventario.setEnabled(true);
 //        this.jbtnEmpleado.setEnabled(true);
 //        this.jbtnLog.setEnabled(true);
 
-        JIFInitSesion initSesion = new JIFInitSesion();
-        this.jdpPanel.add(initSesion);
-        initSesion.setBounds(100, 100, 398, 278);
-        initSesion.setVisible(true);
+            JInternalFrame initSesion = new JIFInitSesion();
+
+            int x = (this.jdpPanel.getWidth() / 2) - (initSesion.getWidth() / 2);
+            int y = (this.jdpPanel.getHeight() / 2) - (initSesion.getHeight() / 2);
+
+            this.jdpPanel.add(initSesion);
+            initSesion.setLocation(x, y);
+            initSesion.show();
+        } catch (IOException ex) {
+            Logger.getLogger(JPPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jbtnSesionActionPerformed
 
 
