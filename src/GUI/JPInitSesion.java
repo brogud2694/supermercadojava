@@ -1,5 +1,7 @@
 package GUI;
 
+import Business.EmployeeBusiness;
+import Domain.Sesion;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -98,14 +100,22 @@ public final class JPInitSesion extends javax.swing.JPanel {
 
     private void jbtnInitSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInitSesionActionPerformed
         if (isNumeric(this.jtfDNI.getText())) {
-            this.jpPrincipal.sesion.setDni(Integer.parseInt(this.jtfDNI.getText()));
-            this.jpPrincipal.sesion.setNombre(this.jtfDNI.getText());
-            this.jpPrincipal.sesion.setPrivilege(3);
-            this.jpPrincipal.sesion.setSesionIniciada(true);
-            this.jpPrincipal.activePrivileges();
-            this.jpPrincipal.setNewTitle();
-            this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
-            this.initSesion.dispose();
+
+            EmployeeBusiness empB = new EmployeeBusiness();
+            Sesion user = empB.loginBusiness(Integer.parseInt(this.jtfDNI.getText()), this.jpfPass.getText());
+            if (user != null) {
+                System.out.println("entro");
+                this.jpPrincipal.sesion.setDni(user.getDni());
+                this.jpPrincipal.sesion.setNombre(user.getNombre());
+                this.jpPrincipal.sesion.setPrivilege(user.getPrivilege());
+                this.jpPrincipal.sesion.setSesionIniciada(true);
+                this.jpPrincipal.activePrivileges();
+                this.jpPrincipal.setNewTitle();
+                this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
+                this.initSesion.dispose();
+            }
+            
+
         }
 
     }//GEN-LAST:event_jbtnInitSesionActionPerformed

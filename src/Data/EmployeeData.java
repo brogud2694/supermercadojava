@@ -2,11 +2,14 @@ package Data;
 
 import Domain.Employee;
 import Domain.Job;
+import Domain.Sesion;
+import java.io.UnsupportedEncodingException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import Util.Constant;
 
 /**
  *
@@ -17,7 +20,7 @@ public class EmployeeData {
     //   private Connection conn;
     private Database databaseConn;
 
-    public EmployeeData() throws ClassNotFoundException, SQLException {
+    public EmployeeData() {
         databaseConn = new Database();
 
     }
@@ -139,22 +142,57 @@ public class EmployeeData {
         call.setString(7, employeeToInsert.getTel_1());
         call.setString(8, employeeToInsert.getTel_2());
         call.setString(9, employeeToInsert.getDirection());
-        call.setString(10, employeeToInsert.getPass());
+        call.setString(10, Strings.getMD5(employeeToInsert.getPass()));
 
         try {
             call.execute();
         } catch (SQLException e) {
             System.err.println(e);
         } finally {
-            if(conn != null){
-               this.databaseConn.closeConnection(); 
+            if (conn != null) {
+                this.databaseConn.closeConnection();
             }
-            
+
         }
     }
 
-    public Employee login(int dni, String pass) {
+    public Sesion login(int dni, String pass) throws SQLException {
+        
+        Sesion user = null;
+        this.databaseConn.openConnection();
+        ResultSet resultSet;
+        Connection conn = databaseConn.getConnection();
+        String hashPass = Strings.getMD5(pass);
 
-        return null;
+        CallableStatement call = conn.prepareCall("{call sp_iniciar_sesion(?,?)}");
+        call.setInt(1, dni);
+        call.setString(2, hashPass);
+
+        resultSet = call.executeQuery();
+        resultSet.next();
+        if (resultSet.getRow() != 0) {
+            int roll;
+            if(resultSet.getString(5).equalsIgnoreCase("Vendedor")){
+                roll = Constant.VENDOR_ROL;
+            } else if(resultSet.getString(5).equalsIgnoreCase("Administrador")){
+                roll = Constant.ADMIN_ROL;
+            } else {
+                roll = Constant.GROCER_ROL;
+            }
+            
+            
+            user = new Sesion(resultSet.getInt(1), 
+                    resultSet.getString(2) + " " + resultSet.getString(3),
+                    resultSet.getInt(4),
+                    resultSet.getString(5),
+                    roll);             
+        }
+        
+        
+        if (conn != null) {
+            this.databaseConn.closeConnection();
+        }
+
+        return user;
     }
 }
