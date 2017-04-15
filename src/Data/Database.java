@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public final class Database {
 
-    private String connectionUrl = "jdbc:sqlserver://163.178.107.130"
+    private String connectionUrl = "jdbc:sqlserver://163.178.107.130;"
             + "databaseName=IF5100_Barrientos_Sandoval;user=sqlserver; password=saucr.12;";
     private Connection con = null;
 
