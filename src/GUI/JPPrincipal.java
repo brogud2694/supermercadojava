@@ -13,9 +13,11 @@ public class JPPrincipal extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jdpPanel = new javax.swing.JDesktopPane();
         jtbTool = new javax.swing.JToolBar();
+        jbtnSesion = new javax.swing.JButton();
         jbtnVentas = new javax.swing.JButton();
         jtbnInventario = new javax.swing.JButton();
         jbtnFacturacion = new javax.swing.JButton();
+        jbtnEmpleado = new javax.swing.JButton();
         jtbExit = new javax.swing.JButton();
 
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -26,9 +28,18 @@ public class JPPrincipal extends javax.swing.JPanel {
         jtbTool.setRollover(true);
         jtbTool.setEnabled(false);
 
-        jbtnVentas.setBackground(new java.awt.Color(153, 153, 255));
+        jbtnSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/sesion.png"))); // NOI18N
+        jbtnSesion.setToolTipText("Panel de sesión");
+        jbtnSesion.setFocusable(false);
+        jbtnSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnSesion.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnSesion.setMinimumSize(new java.awt.Dimension(48, 48));
+        jbtnSesion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jtbTool.add(jbtnSesion);
+
         jbtnVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/ventas.png"))); // NOI18N
         jbtnVentas.setToolTipText("Zona de Ventas");
+        jbtnVentas.setEnabled(false);
         jbtnVentas.setFocusable(false);
         jbtnVentas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtnVentas.setMaximumSize(new java.awt.Dimension(48, 48));
@@ -41,9 +52,9 @@ public class JPPrincipal extends javax.swing.JPanel {
         });
         jtbTool.add(jbtnVentas);
 
-        jtbnInventario.setBackground(new java.awt.Color(153, 153, 255));
         jtbnInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/inventario.png"))); // NOI18N
         jtbnInventario.setToolTipText("Inventario");
+        jtbnInventario.setEnabled(false);
         jtbnInventario.setFocusable(false);
         jtbnInventario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jtbnInventario.setMaximumSize(new java.awt.Dimension(48, 48));
@@ -57,13 +68,26 @@ public class JPPrincipal extends javax.swing.JPanel {
         });
         jtbTool.add(jtbnInventario);
 
-        jbtnFacturacion.setText("jButton1");
+        jbtnFacturacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/factura.png"))); // NOI18N
+        jbtnFacturacion.setToolTipText("Facturación");
+        jbtnFacturacion.setEnabled(false);
         jbtnFacturacion.setFocusable(false);
         jbtnFacturacion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnFacturacion.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnFacturacion.setMinimumSize(new java.awt.Dimension(48, 48));
         jbtnFacturacion.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jtbTool.add(jbtnFacturacion);
 
-        jtbExit.setBackground(new java.awt.Color(153, 153, 255));
+        jbtnEmpleado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/empleado.png"))); // NOI18N
+        jbtnEmpleado.setToolTipText("Zona de Empleados");
+        jbtnEmpleado.setEnabled(false);
+        jbtnEmpleado.setFocusable(false);
+        jbtnEmpleado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnEmpleado.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnEmpleado.setMinimumSize(new java.awt.Dimension(48, 48));
+        jbtnEmpleado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jtbTool.add(jbtnEmpleado);
+
         jtbExit.setForeground(new java.awt.Color(255, 255, 255));
         jtbExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/salir.png"))); // NOI18N
         jtbExit.setToolTipText("Salir");
@@ -134,7 +158,9 @@ public class JPPrincipal extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtnEmpleado;
     private javax.swing.JButton jbtnFacturacion;
+    private javax.swing.JButton jbtnSesion;
     private javax.swing.JButton jbtnVentas;
     private javax.swing.JDesktopPane jdpPanel;
     private javax.swing.JButton jtbExit;
