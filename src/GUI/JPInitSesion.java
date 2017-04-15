@@ -7,9 +7,13 @@ import javax.imageio.ImageIO;
 
 public class JPInitSesion extends javax.swing.JPanel {
 
+    JPPrincipal jpPrincipal;
+    JIFInitSesion initSesion;
     BufferedImage icon;
 
-    public JPInitSesion() throws IOException {
+    public JPInitSesion(JPPrincipal jpPrincipal, JIFInitSesion initSesion) throws IOException {
+        this.jpPrincipal = jpPrincipal;
+        this.initSesion = initSesion;
         initComponents();
         loadResources();
     }
@@ -29,7 +33,7 @@ public class JPInitSesion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jbtnInitSesion = new javax.swing.JButton();
         jlbDNI = new javax.swing.JLabel();
         jlbPass = new javax.swing.JLabel();
         jtfDNI = new javax.swing.JTextField();
@@ -37,7 +41,12 @@ public class JPInitSesion extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("¡Iniciar Sesión!");
+        jbtnInitSesion.setText("¡Iniciar Sesión!");
+        jbtnInitSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnInitSesionActionPerformed(evt);
+            }
+        });
 
         jlbDNI.setText("DNI");
 
@@ -59,7 +68,7 @@ public class JPInitSesion extends javax.swing.JPanel {
                                 .addComponent(jlbPass))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(jButton1)))
+                        .addComponent(jbtnInitSesion)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -74,14 +83,24 @@ public class JPInitSesion extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jtfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtnInitSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtnInitSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnInitSesionActionPerformed
+        this.jpPrincipal.setJbtnEmpleado();
+        this.jpPrincipal.setJbtnFacturacion();
+        this.jpPrincipal.setJbtnInventario();
+        this.jpPrincipal.setJbtnLog();
+        this.jpPrincipal.setJbtnVentas();
+        this.initSesion.dispose();
+        
+    }//GEN-LAST:event_jbtnInitSesionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jbtnInitSesion;
     private javax.swing.JLabel jlbDNI;
     private javax.swing.JLabel jlbPass;
     private javax.swing.JTextField jtfDNI;

@@ -6,15 +6,17 @@ import javax.swing.JPanel;
 
 public final class JIFInitSesion extends javax.swing.JInternalFrame {
 
+    JPPrincipal jpPrincipal;
     private JPanel initSesion;
 
-    public JIFInitSesion() throws IOException {
+    public JIFInitSesion(JPPrincipal jpPrincipal) throws IOException {
+        this.jpPrincipal = jpPrincipal;
         initComponents();
         initPanel();
     }
 
     public void initPanel() throws IOException {
-        this.initSesion = new JPInitSesion();
+        this.initSesion = new JPInitSesion(this.jpPrincipal, this);
         this.initSesion.setOpaque(true);
         this.add(this.initSesion);
         this.pack();

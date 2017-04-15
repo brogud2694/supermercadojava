@@ -177,13 +177,7 @@ public class JPPrincipal extends javax.swing.JPanel {
 
     private void jbtnSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSesionActionPerformed
         try {
-            //        this.jbtnFacturacion.setEnabled(true);
-//        this.jbtnVentas.setEnabled(true);
-//        this.jbtnInventario.setEnabled(true);
-//        this.jbtnEmpleado.setEnabled(true);
-//        this.jbtnLog.setEnabled(true);
-
-            JInternalFrame initSesion = new JIFInitSesion();
+            JInternalFrame initSesion = new JIFInitSesion(this);
 
             int x = (this.jdpPanel.getWidth() / 2) - (initSesion.getWidth() / 2);
             int y = (this.jdpPanel.getHeight() / 2) - (initSesion.getHeight() / 2);
@@ -209,4 +203,24 @@ public class JPPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton jtbExit;
     private javax.swing.JToolBar jtbTool;
     // End of variables declaration//GEN-END:variables
+
+    public void setJbtnEmpleado() {
+        this.jbtnEmpleado.setEnabled(!this.jbtnEmpleado.isEnabled());
+    }
+
+    public void setJbtnFacturacion() {
+        this.jbtnFacturacion.setEnabled(!this.jbtnFacturacion.isEnabled());
+    }
+
+    public void setJbtnInventario() {
+        this.jbtnInventario.setEnabled(!this.jbtnInventario.isEnabled());
+    }
+
+    public void setJbtnLog() {
+        this.jbtnLog.setEnabled(!this.jbtnLog.isEnabled());
+    }
+
+    public void setJbtnVentas() {
+        this.jbtnVentas.setEnabled(!this.jbtnVentas.isEnabled());
+    }
 }

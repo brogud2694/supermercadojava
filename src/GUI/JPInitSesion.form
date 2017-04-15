@@ -36,7 +36,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbtnInitSesion" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="114" max="32767" attributes="0"/>
@@ -55,17 +55,20 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jtfPass" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="23" max="-2" attributes="0"/>
+              <Component id="jbtnInitSesion" min="-2" pref="23" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jbtnInitSesion">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xa1;Iniciar Sesi&#xf3;n!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnInitSesionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jlbDNI">
       <Properties>
