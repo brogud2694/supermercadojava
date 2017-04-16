@@ -104,18 +104,16 @@ public final class JPInitSesion extends javax.swing.JPanel {
             EmployeeBusiness empB = new EmployeeBusiness();
             Sesion user = empB.loginBusiness(Integer.parseInt(this.jtfDNI.getText()), this.jpfPass.getText());
             if (user != null) {
-                System.out.println("entro");
                 this.jpPrincipal.sesion.setDni(user.getDni());
                 this.jpPrincipal.sesion.setNombre(user.getNombre());
                 this.jpPrincipal.sesion.setPrivilege(user.getPrivilege());
                 this.jpPrincipal.sesion.setSesionIniciada(true);
                 this.jpPrincipal.activePrivileges();
                 this.jpPrincipal.setNewTitle();
+                this.jpPrincipal.sesion.setNombrePuesto(user.getNombrePuesto());
                 this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
                 this.initSesion.dispose();
             }
-            
-
         }
 
     }//GEN-LAST:event_jbtnInitSesionActionPerformed

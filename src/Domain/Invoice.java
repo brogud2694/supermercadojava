@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Domain;
 
 import java.util.Date;
 
-/**
- *
- * @author kenne
- */
 public class Invoice {
     private int idInvioce;
     private Employee employee;
     private Date date;
     private char isCancelled;
+    
 
     public Invoice(int idInvioce, Employee employee, Date date, char isCancelled) {
         this.idInvioce = idInvioce;

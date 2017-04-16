@@ -12,10 +12,16 @@ package Domain;
 public class Order {
     private Invoice invoice;
     private Article article;
+    private int quantity;
 
     public Order(Invoice invoice, Article article) {
         this.invoice = invoice;
         this.article = article;
+        this.quantity = 1;
+    }
+    
+    public void incrementQuantity(){
+        this.quantity++;
     }
 
     public Invoice getInvoice() {
@@ -32,6 +38,14 @@ public class Order {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
     
     

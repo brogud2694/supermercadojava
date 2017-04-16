@@ -1,27 +1,17 @@
 package Main;
 
-import Data.EmployeeData;
-import Domain.Employee;
-import Domain.Job;
+import Data.ArticleData;
 import GUI.JPPrincipal;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
 
-    public static void main(String[] args) {
-        initSystem();
-
-
-//        try {
-//            asdf = new EmployeeData();
-//            asdf.login(131231, "micontraseñita");
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
+    public static void main(String[] args) throws SQLException {
+        //initSystem();
+//        ArticleData adsf = new ArticleData();
+//        adsf.getArticle(2);
+//
+//        
 
     }//END MAIN
 

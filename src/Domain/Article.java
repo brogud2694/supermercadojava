@@ -23,6 +23,11 @@ public class Article {
         this.providerArray = providerArray;
     }
 
+    public Article() {
+    }
+    
+    
+
     public int getIdArticle() {
         return idArticle;
     }
@@ -62,4 +67,11 @@ public class Article {
     public void setProviderArray(Provider[] providerArray) {
         this.providerArray = providerArray;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" + "idArticle=" + idArticle + ", name=" + name + ", price=" + price + '}';
+    }
+    
+    
 }

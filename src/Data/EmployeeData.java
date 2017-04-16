@@ -3,7 +3,6 @@ package Data;
 import Domain.Employee;
 import Domain.Job;
 import Domain.Sesion;
-import java.io.UnsupportedEncodingException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -106,7 +105,6 @@ public class EmployeeData {
             newEmployee.setTel_2(resultSet.getString(8));
             newEmployee.setDirection(resultSet.getString(9));
         }
-        System.out.println(resultSet.getRow());
 
         if (resultSet != null) {
             try {
