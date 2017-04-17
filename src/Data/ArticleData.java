@@ -18,23 +18,21 @@ public class ArticleData {
     public Article getArticle(int idProduct) throws SQLException {
         this.databaseConn.openConnection();
         Connection conn = databaseConn.getConnection();
+        Article newArticle = null;
         
         Statement statment;
         ResultSet resultSet;
-        
         statment = conn.createStatement();
         resultSet = statment.executeQuery("SELECT nombre, precio "
                 + "FROM Articulo WHERE idArticulo=" + idProduct);
         
-        Article newArticle = new Article();
         
         resultSet.next();
         if(resultSet.getRow() != 0){
+            newArticle = new Article();
             newArticle.setIdArticle(idProduct);
             newArticle.setName(resultSet.getString(1));
             newArticle.setPrice(resultSet.getDouble(2));
-            
-            System.out.println(newArticle.toString());
         }
         
         if (resultSet != null) {

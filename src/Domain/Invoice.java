@@ -7,13 +7,10 @@ public class Invoice {
     private Employee employee;
     private Date date;
     private char isCancelled;
+    private Order[] orderArray;
     
 
-    public Invoice(int idInvioce, Employee employee, Date date, char isCancelled) {
-        this.idInvioce = idInvioce;
-        this.employee = employee;
-        this.date = date;
-        this.isCancelled = isCancelled;
+    public Invoice() {
     }
 
     public int getIdInvioce() {
@@ -47,6 +44,15 @@ public class Invoice {
     public void setIsCancelled(char isCancelled) {
         this.isCancelled = isCancelled;
     }
+
+    public Order[] getOrderArray() {
+        return orderArray;
+    }
+
+    public void setOrderArray(Order[] orderArray) {
+        this.orderArray = orderArray;
+    }
+    
     
     
 

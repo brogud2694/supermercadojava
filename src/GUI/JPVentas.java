@@ -1,16 +1,21 @@
 package GUI;
 
+import Business.ArticleBusiness;
+import Business.InvoiceBusiness;
+import Domain.Article;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public final class JPVentas extends javax.swing.JPanel {
 
     JPPrincipal jpPrincipal;
     JIFVentas ventas;
     BufferedImage icon;
+    DefaultTableModel tableModel;
 
     public JPVentas(JPPrincipal jpPrincipal, JIFVentas initSesion) throws IOException {
         this.jpPrincipal = jpPrincipal;
@@ -22,6 +27,7 @@ public final class JPVentas extends javax.swing.JPanel {
 
     public void init() {
         this.jlbVendedorDos.setText(this.jpPrincipal.sesion.getNombre());
+        this.tableModel = (DefaultTableModel) jtbInvoiceDetail.getModel();
     }
 
     public void loadResources() throws IOException {
@@ -40,7 +46,7 @@ public final class JPVentas extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbInvoiceDetail = new javax.swing.JTable();
         jtbTool = new javax.swing.JToolBar();
         jbtnProcesarCompra = new javax.swing.JButton();
         jbtnExit = new javax.swing.JButton();
@@ -57,7 +63,7 @@ public final class JPVentas extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 480));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbInvoiceDetail.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -73,12 +79,12 @@ public final class JPVentas extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane1.setViewportView(jtbInvoiceDetail);
+        if (jtbInvoiceDetail.getColumnModel().getColumnCount() > 0) {
+            jtbInvoiceDetail.getColumnModel().getColumn(1).setResizable(false);
+            jtbInvoiceDetail.getColumnModel().getColumn(2).setResizable(false);
+            jtbInvoiceDetail.getColumnModel().getColumn(3).setResizable(false);
+            jtbInvoiceDetail.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jtbTool.setFloatable(false);
@@ -201,12 +207,54 @@ public final class JPVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
+        if (!(this.jtfCode.getText().equals("") && this.jtfCantidad.getText().equals(""))) {
+            if (isNumeric(this.jtfCode.getText()) && isNumeric(this.jtfCantidad.getText())) {
 
+                Business.ArticleBusiness artB = new ArticleBusiness();
+                Article newArticle = artB.getArticleBusiness(
+                        Integer.parseInt(this.jtfCode.getText()));
+                int quantity = Integer.parseInt(this.jtfCantidad.getText());
+                double subTotal = quantity * newArticle.getPrice();
+                if (newArticle != null) {
+
+                    int existCheck = artB.checkIfArticleAlreadyExist(tableModel, newArticle.getIdArticle());
+
+                    if (existCheck == -1) {
+                        tableModel.addRow(new Object[]{this.jtfCode.getText(),
+                            newArticle.getName(),
+                            quantity,
+                            newArticle.getPrice(),
+                            subTotal});
+                    } else {
+                        int newQuantity = Integer.parseInt(
+                                tableModel.getValueAt(existCheck, 2).toString()) + quantity;
+                        double newSubtotal = newQuantity * Double.parseDouble(
+                                tableModel.getValueAt(existCheck, 3).toString());
+                        
+                        tableModel.setValueAt(newQuantity ,existCheck, 2);
+                        tableModel.setValueAt(newSubtotal ,existCheck, 4);
+                    }
+
+                    //El objeto solo trae el nombre y el precio  
+                } else {
+                    //No existe el articulo
+                    System.err.println("No se encontró el articulo");
+                }
+            }
+        }
     }//GEN-LAST:event_jbtnAddActionPerformed
 
     private void jbtnProcesarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnProcesarCompraActionPerformed
-        // TODO add your handling code here:
-        
+
+        InvoiceBusiness invB = new InvoiceBusiness();
+        if (tableModel.getRowCount() != 0) {
+
+            invB.insertInvoiceBusiness(tableModel, this.jpPrincipal.sesion.getDni());
+        } else {
+            System.out.println("Nada ingresado");
+        }
+
+
     }//GEN-LAST:event_jbtnProcesarCompraActionPerformed
 
     public boolean isNumeric(String number) {
@@ -221,7 +269,6 @@ public final class JPVentas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtnAdd;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnProcesarCompra;
@@ -229,6 +276,7 @@ public final class JPVentas extends javax.swing.JPanel {
     private javax.swing.JLabel jlbCode;
     private javax.swing.JLabel jlbVendedor;
     private javax.swing.JLabel jlbVendedorDos;
+    private javax.swing.JTable jtbInvoiceDetail;
     private javax.swing.JToolBar jtbTool;
     private javax.swing.JTextField jtfCantidad;
     private javax.swing.JTextField jtfCode;

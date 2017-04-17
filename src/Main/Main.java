@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        //initSystem();
+        initSystem();
 //        ArticleData adsf = new ArticleData();
 //        adsf.getArticle(2);
 //

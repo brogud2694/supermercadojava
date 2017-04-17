@@ -10,26 +10,19 @@ package Domain;
  * @author kenne
  */
 public class Order {
-    private Invoice invoice;
+
     private Article article;
     private int quantity;
 
-    public Order(Invoice invoice, Article article) {
-        this.invoice = invoice;
+    public Order(Article article) {
+
         this.article = article;
         this.quantity = 1;
     }
-    
-    public void incrementQuantity(){
-        this.quantity++;
-    }
 
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public Order(Article article, int quantity) {
+        this.article = article;
+        this.quantity = quantity;
     }
 
     public Article getArticle() {
