@@ -3,9 +3,25 @@ package GUI;
 import Business.ArticleBusiness;
 import Business.InvoiceBusiness;
 import Domain.Article;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -49,6 +65,7 @@ public final class JPVentas extends javax.swing.JPanel {
         jtbInvoiceDetail = new javax.swing.JTable();
         jtbTool = new javax.swing.JToolBar();
         jbtnProcesarCompra = new javax.swing.JButton();
+        jbtnReporte = new javax.swing.JButton();
         jbtnExit = new javax.swing.JButton();
         jlbCode = new javax.swing.JLabel();
         jtfCode = new javax.swing.JTextField();
@@ -104,6 +121,20 @@ public final class JPVentas extends javax.swing.JPanel {
             }
         });
         jtbTool.add(jbtnProcesarCompra);
+
+        jbtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/factura.png"))); // NOI18N
+        jbtnReporte.setFocusable(false);
+        jbtnReporte.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnReporte.setMaximumSize(new java.awt.Dimension(48, 48));
+        jbtnReporte.setMinimumSize(new java.awt.Dimension(48, 48));
+        jbtnReporte.setPreferredSize(new java.awt.Dimension(48, 48));
+        jbtnReporte.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnReporteActionPerformed(evt);
+            }
+        });
+        jtbTool.add(jbtnReporte);
 
         jbtnExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/image/salir.png"))); // NOI18N
         jbtnExit.setToolTipText("Salir");
@@ -195,12 +226,12 @@ public final class JPVentas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnExitActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "¿Desea cerrar la venta?") == 0) {
+        if (JOptionPane.showConfirmDialog(this, "¿Desea cerrar el inventario?") == 0) {
             this.jpPrincipal.inUse = !this.jpPrincipal.inUse;
             this.ventas.dispose();
         }
@@ -257,6 +288,57 @@ public final class JPVentas extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jbtnProcesarCompraActionPerformed
 
+    private void jbtnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReporteActionPerformed
+        FileOutputStream ficheroPdf = null;
+        try {
+            InvoiceBusiness ib = new InvoiceBusiness();
+            ResultSet rs = ib.reportingSalesBusiness(04, 2017);
+
+            Document documento = new Document();
+            ficheroPdf = new FileOutputStream("fichero.pdf");
+            PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
+            documento.open();
+
+            documento.add(new Paragraph("Reporte del mes "
+                    + this.jtfCode.getText() + " del año" + this.jtfCantidad.getText(),
+                    FontFactory.getFont("arial", // fuente
+                            22, // tamaño
+                            Font.ITALIC, // estilo
+                            BaseColor.GREEN)));
+
+            try {
+                Image foto = Image.getInstance("super.png");
+                foto.scaleToFit(100, 100);
+                foto.setAlignment(Chunk.ALIGN_MIDDLE);
+                documento.add(foto);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            PdfPTable tabla = new PdfPTable(4);
+            while (rs.next()) {
+                tabla.addCell(rs.getInt(1) + "");
+                tabla.addCell(rs.getString(2) + "");
+                tabla.addCell(rs.getDouble(3) + "");
+                tabla.addCell(rs.getInt(4) + "");
+            }
+            documento.add(tabla);
+            documento.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                ficheroPdf.close();
+            } catch (IOException ex) {
+                Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jbtnReporteActionPerformed
+
     public boolean isNumeric(String number) {
         try {
             Integer.parseInt(number);
@@ -272,6 +354,7 @@ public final class JPVentas extends javax.swing.JPanel {
     private javax.swing.JButton jbtnAdd;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JButton jbtnProcesarCompra;
+    private javax.swing.JButton jbtnReporte;
     private javax.swing.JLabel jlbCantidad;
     private javax.swing.JLabel jlbCode;
     private javax.swing.JLabel jlbVendedor;

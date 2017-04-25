@@ -30,8 +30,7 @@ public class InvoiceData {
                 quantity += newInvoice.getOrderArray()[i].getQuantity() + "";
             }
         }
-                
-                
+
         CallableStatement call = conn.prepareCall("{call sp_insertar_compra(?,?,?)}");
         call.setInt(1, newInvoice.getEmployee().getDNI());
         call.setString(2, articles);
@@ -45,35 +44,27 @@ public class InvoiceData {
             if (conn != null) {
                 this.databaseConn.closeConnection();
             }
-            if(call != null){
+            if (call != null) {
                 call.close();
             }
         }
-        
+
         return false;
     }
-    
-    public ResultSet reportingSalesData(int month, int year) throws SQLException{
+
+    public ResultSet reportingSalesData(int month, int year) throws SQLException {
         this.databaseConn.openConnection();
         Connection conn = databaseConn.getConnection();
-        
+
         CallableStatement call = conn.prepareCall("{call sp_monthly_sales(?,?)}");
         call.setInt(1, month);
         call.setInt(2, year);
-        
+
         call.execute();
         ResultSet rs = call.getResultSet();
+
         return rs;
-        
-     /*   while(rs.next()){
-            System.out.print(rs.getInt(1) + " ");
-            System.out.print(rs.getString(2)+ " ");
-            System.out.print(rs.getDouble(3)+ " ");
-            System.out.println(rs.getInt(4));
-        }
-    */
-        
+
     }
-            
-    
+
 }
