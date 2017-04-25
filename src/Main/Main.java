@@ -1,6 +1,7 @@
 package Main;
 
 import Data.ArticleData;
+import Domain.Article;
 import GUI.JPPrincipal;
 import java.sql.SQLException;
 
@@ -8,10 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
         initSystem();
-//        ArticleData adsf = new ArticleData();
-//        adsf.getArticle(2);
-//
-//        
+       
 
     }//END MAIN
 

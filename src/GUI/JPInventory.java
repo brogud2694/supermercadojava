@@ -1,16 +1,21 @@
 package GUI;
 
+import Business.ArticleBusiness;
+import Domain.Article;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public final class JPInventory extends javax.swing.JPanel {
 
     JPPrincipal jpPrincipal;
     JIFInventory inventory;
     BufferedImage icon;
+    ArticleBusiness artBusiness;
 
     public JPInventory(JPPrincipal jpPrincipal, JIFInventory inventory) throws IOException {
         this.jpPrincipal = jpPrincipal;
@@ -18,10 +23,24 @@ public final class JPInventory extends javax.swing.JPanel {
         initComponents();
         loadResources();
         init();
+        artBusiness = new ArticleBusiness();
+        loadTable();
+
     }
 
     public void init() {
         this.jlbVendedorDos.setText(this.jpPrincipal.sesion.getNombre());
+    }
+    
+    public void loadTable(){
+        Article[] artArray = artBusiness.getInventoryBusiness();
+        DefaultTableModel model = (DefaultTableModel) this.jtbArticles.getModel();
+        if (artArray != null) {
+            for (Article article : artArray) {
+                model.addRow(new Object[]{article.getIdArticle(),
+                    article.getName(), article.getQuantity()});
+            }
+        }
     }
 
     public void loadResources() throws IOException {
@@ -40,7 +59,7 @@ public final class JPInventory extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbArticles = new javax.swing.JTable();
         jtbTool = new javax.swing.JToolBar();
         jbtnExit = new javax.swing.JButton();
         jlbCode = new javax.swing.JLabel();
@@ -54,7 +73,7 @@ public final class JPInventory extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 480));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbArticles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -70,11 +89,11 @@ public final class JPInventory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane1.setViewportView(jtbArticles);
+        if (jtbArticles.getColumnModel().getColumnCount() > 0) {
+            jtbArticles.getColumnModel().getColumn(0).setResizable(false);
+            jtbArticles.getColumnModel().getColumn(1).setResizable(false);
+            jtbArticles.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jtbTool.setFloatable(false);
@@ -168,7 +187,32 @@ public final class JPInventory extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnExitActionPerformed
 
     private void jbtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddActionPerformed
+        if (!(this.jtfCode.getText().equals("") && this.jtfCantidad.getText().equals(""))) {
+            if (isNumeric(this.jtfCode.getText()) && isNumeric(this.jtfCantidad.getText())) {
 
+                int id = Integer.parseInt(this.jtfCode.getText());
+                int quantity = Integer.parseInt(this.jtfCantidad.getText());
+
+                if (artBusiness.addArticleToinventory(id, quantity)) {
+                    
+                    DefaultTableModel model = (DefaultTableModel) this.jtbArticles.getModel();
+                    int existCheck = artBusiness.checkIfArticleAlreadyExist(model, id);
+                    
+                    if(existCheck == -1){
+                        model.addRow(new Object[]{
+                        artBusiness.getArticleBusiness(
+                        Integer.parseInt(this.jtfCode.getText())).getIdArticle(),
+                        this.jtfCode.getText(),
+                        this.jtfCantidad.getText()});
+                    } else{
+                        quantity += Integer.parseInt(model.getValueAt(existCheck, 2).toString());
+                        model.setValueAt(quantity, existCheck, 2);
+                    }
+                } else {
+
+                }
+            }
+        }
     }//GEN-LAST:event_jbtnAddActionPerformed
 
     public boolean isNumeric(String number) {
@@ -182,13 +226,13 @@ public final class JPInventory extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtnAdd;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JLabel jlbCantidad;
     private javax.swing.JLabel jlbCode;
     private javax.swing.JLabel jlbVendedor;
     private javax.swing.JLabel jlbVendedorDos;
+    private javax.swing.JTable jtbArticles;
     private javax.swing.JToolBar jtbTool;
     private javax.swing.JTextField jtfCantidad;
     private javax.swing.JTextField jtfCode;

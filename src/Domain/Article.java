@@ -13,6 +13,8 @@ public class Article {
     private String name;
     private String desciption;
     private double price;
+    private int quantity;
+
     private Provider[] providerArray;
 
     public Article(int idArticle, String name, String desciption, double price, Provider[] providerArray) {
@@ -67,11 +69,21 @@ public class Article {
     public void setProviderArray(Provider[] providerArray) {
         this.providerArray = providerArray;
     }
+    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public String toString() {
         return "Article{" + "idArticle=" + idArticle + ", name=" + name + ", price=" + price + '}';
     }
+
+    
     
     
 }

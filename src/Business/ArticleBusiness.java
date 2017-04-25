@@ -8,9 +8,7 @@ package Business;
 import Data.ArticleData;
 import Domain.Article;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,15 +29,36 @@ public class ArticleBusiness {
             return null;
         }
     }
-    
-    public int checkIfArticleAlreadyExist(TableModel tableData, int irArt){
-        
+
+    public int checkIfArticleAlreadyExist(DefaultTableModel tableData, int irArt) {
+
         for (int i = 0; i < tableData.getRowCount(); i++) {
-            if(Integer.parseInt(tableData.getValueAt(i, 0).toString()) == irArt){
+            if (Integer.parseInt(tableData.getValueAt(i, 0).toString()) == irArt) {
                 return i;
             }
         }
         return -1;
     }
+    
+    public Article[] getInventoryBusiness(){
+        try {
+            return artD.getAllInventory();
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 
+    public boolean addArticleToinventory(int artId, int quantity) {
+        Article newArticle = new Article();
+        newArticle.setIdArticle(artId);
+        newArticle.setQuantity(quantity);
+
+        try {
+            return artD.addArticleToInventory(newArticle);
+        } catch (SQLException ex) {
+            return false;
+        }
+    }  
+    
+    
 }

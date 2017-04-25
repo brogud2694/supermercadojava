@@ -213,10 +213,10 @@ public final class JPVentas extends javax.swing.JPanel {
                 Business.ArticleBusiness artB = new ArticleBusiness();
                 Article newArticle = artB.getArticleBusiness(
                         Integer.parseInt(this.jtfCode.getText()));
-                int quantity = Integer.parseInt(this.jtfCantidad.getText());
-                double subTotal = quantity * newArticle.getPrice();
-                if (newArticle != null) {
 
+                if (newArticle != null) {
+                    int quantity = Integer.parseInt(this.jtfCantidad.getText());
+                    double subTotal = quantity * newArticle.getPrice();
                     int existCheck = artB.checkIfArticleAlreadyExist(tableModel, newArticle.getIdArticle());
 
                     if (existCheck == -1) {
@@ -230,9 +230,9 @@ public final class JPVentas extends javax.swing.JPanel {
                                 tableModel.getValueAt(existCheck, 2).toString()) + quantity;
                         double newSubtotal = newQuantity * Double.parseDouble(
                                 tableModel.getValueAt(existCheck, 3).toString());
-                        
-                        tableModel.setValueAt(newQuantity ,existCheck, 2);
-                        tableModel.setValueAt(newSubtotal ,existCheck, 4);
+
+                        tableModel.setValueAt(newQuantity, existCheck, 2);
+                        tableModel.setValueAt(newSubtotal, existCheck, 4);
                     }
 
                     //El objeto solo trae el nombre y el precio  

@@ -39,8 +39,8 @@ public class EmployeeData {
             resultSet.last();
             rowCount = resultSet.getRow();
             resultSet.beforeFirst();
-        } catch (Exception ex) {
-
+        } catch (SQLException ex) {
+            throw new SQLException();
         }
 
         Employee[] employeArray = new Employee[rowCount];
@@ -59,19 +59,16 @@ public class EmployeeData {
             currentEmployee.setTel_2(resultSet.getString(8));
             currentEmployee.setDirection(resultSet.getString(9));
             employeArray[index++] = currentEmployee;
-            System.out.println(currentEmployee.toString());
-            System.out.println(resultSet.getDate(6).toString());
+            
         }
 
-        if (resultSet
-                != null) {
+        if (resultSet!= null) {
             try {
                 resultSet.close();
             } catch (SQLException e) {
             }
         }
-        if (statment
-                != null) {
+        if (statment!= null) {
             try {
                 statment.close();
             } catch (SQLException e) {
