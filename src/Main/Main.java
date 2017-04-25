@@ -1,10 +1,6 @@
 package Main;
 
-import Data.ArticleData;
-import Data.EmployeeData;
-import Domain.Article;
 import GUI.JPPrincipal;
-import java.sql.SQLException;
 
 public class Main {
 

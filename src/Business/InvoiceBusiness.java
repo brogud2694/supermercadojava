@@ -10,6 +10,7 @@ import Domain.Article;
 import Domain.Employee;
 import Domain.Invoice;
 import Domain.Order;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,13 +21,13 @@ import javax.swing.table.TableModel;
  * @author kenne
  */
 public class InvoiceBusiness {
-    
+
     InvoiceData invD;
 
     public InvoiceBusiness() {
-        
+
         invD = new InvoiceData();
-        
+
     }
 
     public boolean insertInvoiceBusiness(TableModel tableData, int employeeDNI) {
@@ -43,17 +44,25 @@ public class InvoiceBusiness {
                     Integer.parseInt(tableData.getValueAt(i, 2).toString()));
             temporalArticle.setPrice(Double.parseDouble(tableData.getValueAt(i, 3).toString()));
         }
-        
+
         newInvoice.setEmployee(new Employee(employeeDNI));
         newInvoice.setOrderArray(orderArray);
         newInvoice.setIsCancelled('n');
-        
+
         try {
             invD.insertInvoice(newInvoice);
         } catch (SQLException ex) {
             Logger.getLogger(InvoiceBusiness.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return false;
-    }    
+    }
+
+    public ResultSet reportingSalesBusiness(int month, int year) {
+        try {
+            return invD.reportingSalesData(month, year);
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
 }

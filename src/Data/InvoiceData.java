@@ -3,6 +3,7 @@ package Data;
 import Domain.Invoice;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class InvoiceData {
@@ -51,4 +52,28 @@ public class InvoiceData {
         
         return false;
     }
+    
+    public ResultSet reportingSalesData(int month, int year) throws SQLException{
+        this.databaseConn.openConnection();
+        Connection conn = databaseConn.getConnection();
+        
+        CallableStatement call = conn.prepareCall("{call sp_monthly_sales(?,?)}");
+        call.setInt(1, month);
+        call.setInt(2, year);
+        
+        call.execute();
+        ResultSet rs = call.getResultSet();
+        return rs;
+        
+     /*   while(rs.next()){
+            System.out.print(rs.getInt(1) + " ");
+            System.out.print(rs.getString(2)+ " ");
+            System.out.print(rs.getDouble(3)+ " ");
+            System.out.println(rs.getInt(4));
+        }
+    */
+        
+    }
+            
+    
 }
