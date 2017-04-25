@@ -3,6 +3,7 @@ package Business;
 
 import Data.EmployeeData;
 import Domain.Sesion;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 

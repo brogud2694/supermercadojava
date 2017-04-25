@@ -190,4 +190,19 @@ public class EmployeeData {
 
         return user;
     }
+    
+    //llamado a calcular planilla
+     public void calculatePayRoll(int idEmployee) throws SQLException{
+        this.databaseConn.openConnection();
+        Connection conn = databaseConn.getConnection();
+        
+         CallableStatement call = conn.prepareCall("{call sp_calcular_planilla(?,?)}");
+         call.setInt(1, idEmployee);
+         call.registerOutParameter(2, java.sql.Types.DOUBLE);
+         call.execute();
+         
+         
+         System.out.println(call.getDouble(2));
+
+    }
 }
