@@ -289,52 +289,57 @@ public final class JPVentas extends javax.swing.JPanel {
     }//GEN-LAST:event_jbtnProcesarCompraActionPerformed
 
     private void jbtnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnReporteActionPerformed
-        FileOutputStream ficheroPdf = null;
-        try {
-            InvoiceBusiness ib = new InvoiceBusiness();
-            ResultSet rs = ib.reportingSalesBusiness(04, 2017);
+        if(!(this.jtfCode.getText().equals("") && this.jtfCantidad.getText().equals(""))) {
+            if (isNumeric(this.jtfCode.getText()) && isNumeric(this.jtfCantidad.getText())) {
+                FileOutputStream ficheroPdf = null;
+                try {
+                    InvoiceBusiness ib = new InvoiceBusiness();
+                    ResultSet rs = ib.reportingSalesBusiness(Integer.parseInt(this.jtfCode.getText()),
+                            Integer.parseInt(this.jtfCantidad.getText()));
 
-            Document documento = new Document();
-            ficheroPdf = new FileOutputStream("fichero.pdf");
-            PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
-            documento.open();
+                    Document documento = new Document();
+                    ficheroPdf = new FileOutputStream("fichero.pdf");
+                    PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
+                    documento.open();
 
-            documento.add(new Paragraph("Reporte del mes "
-                    + this.jtfCode.getText() + " del año" + this.jtfCantidad.getText(),
-                    FontFactory.getFont("arial", // fuente
-                            22, // tamaño
-                            Font.ITALIC, // estilo
-                            BaseColor.GREEN)));
+                    documento.add(new Paragraph("Reporte del mes "
+                            + this.jtfCode.getText() + " del año" + this.jtfCantidad.getText(),
+                            FontFactory.getFont("arial", // fuente
+                                    22, // tamaño
+                                    Font.ITALIC, // estilo
+                                    BaseColor.GREEN)));
 
-            try {
-                Image foto = Image.getInstance("super.png");
-                foto.scaleToFit(100, 100);
-                foto.setAlignment(Chunk.ALIGN_MIDDLE);
-                documento.add(foto);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                    try {
+                        Image foto = Image.getInstance("super.png");
+                        foto.scaleToFit(100, 100);
+                        foto.setAlignment(Chunk.ALIGN_MIDDLE);
+                        documento.add(foto);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-            PdfPTable tabla = new PdfPTable(4);
-            while (rs.next()) {
-                tabla.addCell(rs.getInt(1) + "");
-                tabla.addCell(rs.getString(2) + "");
-                tabla.addCell(rs.getDouble(3) + "");
-                tabla.addCell(rs.getInt(4) + "");
-            }
-            documento.add(tabla);
-            documento.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DocumentException ex) {
-            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                ficheroPdf.close();
-            } catch (IOException ex) {
-                Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+                    PdfPTable tabla = new PdfPTable(4);
+                    while (rs.next()) {
+                        tabla.addCell(rs.getInt(1) + "");
+                        tabla.addCell(rs.getString(2) + "");
+                        tabla.addCell(rs.getDouble(3) + "");
+                        tabla.addCell(rs.getInt(4) + "");
+                    }
+                    documento.add(tabla);
+                    documento.close();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DocumentException ex) {
+                    Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    try {
+                        ficheroPdf.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(JPVentas.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
         }
     }//GEN-LAST:event_jbtnReporteActionPerformed
