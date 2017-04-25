@@ -60,5 +60,9 @@ public class ArticleBusiness {
         }
     }  
     
+    public boolean deleteArticleInventory(int id) throws SQLException {
+        return this.artD.deleteArticleInventory(id);
+    }
+    
     
 }

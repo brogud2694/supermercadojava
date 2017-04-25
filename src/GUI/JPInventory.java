@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,8 +33,8 @@ public final class JPInventory extends javax.swing.JPanel {
     public void init() {
         this.jlbVendedorDos.setText(this.jpPrincipal.sesion.getNombre());
     }
-    
-    public void loadTable(){
+
+    public void loadTable() {
         Article[] artArray = artBusiness.getInventoryBusiness();
         DefaultTableModel model = (DefaultTableModel) this.jtbArticles.getModel();
         if (artArray != null) {
@@ -69,6 +71,7 @@ public final class JPInventory extends javax.swing.JPanel {
         jbtnAdd = new javax.swing.JButton();
         jlbVendedor = new javax.swing.JLabel();
         jlbVendedorDos = new javax.swing.JLabel();
+        jbtnEliminar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 480));
@@ -126,6 +129,13 @@ public final class JPInventory extends javax.swing.JPanel {
 
         jlbVendedorDos.setText("jLabel2");
 
+        jbtnEliminar.setText("Eliminar");
+        jbtnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -138,7 +148,10 @@ public final class JPInventory extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jbtnAdd)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbtnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jbtnAdd))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jlbCode)
@@ -172,10 +185,12 @@ public final class JPInventory extends javax.swing.JPanel {
                     .addComponent(jlbCantidad)
                     .addComponent(jtfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
-                .addComponent(jbtnAdd)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtnAdd)
+                    .addComponent(jbtnEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -194,17 +209,17 @@ public final class JPInventory extends javax.swing.JPanel {
                 int quantity = Integer.parseInt(this.jtfCantidad.getText());
 
                 if (artBusiness.addArticleToinventory(id, quantity)) {
-                    
+
                     DefaultTableModel model = (DefaultTableModel) this.jtbArticles.getModel();
                     int existCheck = artBusiness.checkIfArticleAlreadyExist(model, id);
-                    
-                    if(existCheck == -1){
+
+                    if (existCheck == -1) {
                         model.addRow(new Object[]{
-                        artBusiness.getArticleBusiness(
-                        Integer.parseInt(this.jtfCode.getText())).getIdArticle(),
-                        this.jtfCode.getText(),
-                        this.jtfCantidad.getText()});
-                    } else{
+                            artBusiness.getArticleBusiness(
+                            Integer.parseInt(this.jtfCode.getText())).getIdArticle(),
+                            this.jtfCode.getText(),
+                            this.jtfCantidad.getText()});
+                    } else {
                         quantity += Integer.parseInt(model.getValueAt(existCheck, 2).toString());
                         model.setValueAt(quantity, existCheck, 2);
                     }
@@ -214,6 +229,24 @@ public final class JPInventory extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_jbtnAddActionPerformed
+
+    private void jbtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEliminarActionPerformed
+        if (!(this.jtfCode.getText().equals(""))) {
+            if (isNumeric(this.jtfCode.getText())) {
+                try {
+                    int id = Integer.parseInt(this.jtfCode.getText());
+                    if (artBusiness.deleteArticleInventory(id)) {
+                        JOptionPane.showMessageDialog(inventory, "Eliminado con exito");
+                        
+                    } else {
+                       JOptionPane.showMessageDialog(inventory, "No se pudo eliminar"); 
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(JPInventory.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jbtnEliminarActionPerformed
 
     public boolean isNumeric(String number) {
         try {
@@ -227,6 +260,7 @@ public final class JPInventory extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnAdd;
+    private javax.swing.JButton jbtnEliminar;
     private javax.swing.JButton jbtnExit;
     private javax.swing.JLabel jlbCantidad;
     private javax.swing.JLabel jlbCode;

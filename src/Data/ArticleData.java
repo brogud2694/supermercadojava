@@ -60,7 +60,7 @@ public class ArticleData {
 
         Statement statment;
         ResultSet resultSet;
-        statment = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+        statment = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
                 ResultSet.CONCUR_READ_ONLY);
         resultSet = statment.executeQuery("SELECT Articulo.idArticulo, Articulo.nombre,"
                 + "Inventario.unidades FROM Articulo INNER JOIN Inventario "
@@ -103,31 +103,48 @@ public class ArticleData {
         }
         return articleArray;
     }
-    
-    public boolean addArticleToInventory(Article newArticle) throws SQLException{
+
+    public boolean addArticleToInventory(Article newArticle) throws SQLException {
         this.databaseConn.openConnection();
         Connection conn = databaseConn.getConnection();
-        
+
         CallableStatement call = conn.prepareCall("{call sp_insertar_inventario(?,?,?)}");
         call.setInt(1, newArticle.getIdArticle());
         call.setInt(2, newArticle.getQuantity());
-        call.registerOutParameter(3,java.sql.Types.INTEGER);
+        call.registerOutParameter(3, java.sql.Types.INTEGER);
 
-        
-        
-        try{
+        try {
             call.execute();
-            
-            if (call.getInt(3) == 1){
+
+            if (call.getInt(3) == 1) {
                 return true;
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e);
         }
-        
+
         return false;
     }
-    
-    
-  
+
+    public boolean deleteArticleInventory(int id) throws SQLException {
+        this.databaseConn.openConnection();
+        Connection conn = databaseConn.getConnection();
+
+        CallableStatement call = conn.prepareCall("{call sp_eliminar_inventario(?,?)}");
+        call.setInt(1, id);
+        call.registerOutParameter(2, java.sql.Types.INTEGER);
+
+        try {
+            call.execute();
+
+            if (call.getInt(2) == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+
+        return false;
+    }
+
 }
